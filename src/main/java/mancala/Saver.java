@@ -1,3 +1,4 @@
+package mancala;
 import java.io.*;
 
 public class Saver implements Serializable{

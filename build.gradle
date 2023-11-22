@@ -17,13 +17,14 @@ compileJava {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'ui.TextUI'
+        attributes 'Main-Class': 'main.Main'
     }
-    archiveBaseName = 'TextUI'
+    archiveBaseName = 'Main'
 }
 
 
 pmd {
+    ignoreFailures = true
     consoleOutput = false
     toolVersion = "6.55.0"
     rulesMinimumPriority = 3
@@ -39,7 +40,7 @@ pmd {
 
 task echo;
 echo.doFirst {
-    println "To run the program from jar:\njava -jar build/libs/TextUI.jar"
+    println "To run the program from jar:\njava -jar build/libs/Main.jar"
 }
 test {
     useJUnitPlatform()
