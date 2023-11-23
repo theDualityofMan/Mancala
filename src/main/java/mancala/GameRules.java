@@ -108,7 +108,7 @@ public abstract class GameRules {
 
         Store storeTwo = new Store();
         storeTwo.setOwner(two);
-        two.setStore(two);
+        two.setStore(storeTwo);
         gameBoard.setStore(storeTwo, 2);
 
         /* make a new store in this method, set the owner
@@ -124,7 +124,7 @@ public abstract class GameRules {
     }
 
     @Override
-    public String toString() {
-        // Implement toString() method logic here.
+    public String toString(){
+        
     }
 }

@@ -164,6 +164,7 @@ public class MancalaDataStructure {
     public void setStore(Countable store, int playerNum) {
         data.set(storePos(playerNum), store);
     }
+    
     /*helper method for wrapping the iterator around to the beginning again*/
     private void loopIterator() {
         if (iteratorPos == PLAYER_TWO + 1) {
@@ -215,5 +216,9 @@ public class MancalaDataStructure {
         loopIterator(); // in case we've run off the end
         skipPosition(); // skip store and start position if necessary
         return data.get(iteratorPos);
+    }
+
+    public int getIterator(){
+        return iteratorPos;
     }
 }
