@@ -41,7 +41,21 @@ public abstract class GameRules {
      * @return True if the side is empty, false otherwise.
      */
     boolean isSideEmpty(int pitNum) {
-        // This method can be implemented in the abstract class.
+        boolean sideEmpty = true;
+        if(pitNum >= 0 && pitNum <= 5){
+            for(int x = 0;x <= 5;x++){
+                if(gameBoard.getNumStones(x) != 0){
+                    sideEmpty = false;
+                }
+            }
+        } else{
+            for(int x = 7;x <= 12;x++){
+                if(gameBoard.getNumStones(x) != 0){
+                    sideEmpty = false;
+                }
+            }
+        }
+        return sideEmpty;
     }
 
     /**
@@ -87,7 +101,15 @@ public abstract class GameRules {
      */
     public void registerPlayers(Player one, Player two) {
         // this method can be implemented in the abstract class.
+        Store storeOne = new Store();
+        storeOne.setOwner(one);
+        one.setStore(storeOne);
+        gameBoard.setStore(storeOne, 1);
 
+        Store storeTwo = new Store();
+        storeTwo.setOwner(two);
+        two.setStore(two);
+        gameBoard.setStore(storeTwo, 2);
 
         /* make a new store in this method, set the owner
          then use the setStore(store,playerNum) method of the data structure*/
