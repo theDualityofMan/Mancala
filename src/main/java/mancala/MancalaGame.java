@@ -1,6 +1,6 @@
 package mancala;
 import java.util.ArrayList;
-import java.io.*;
+import java.io.Serializable;
 
 public class MancalaGame implements Serializable{
 

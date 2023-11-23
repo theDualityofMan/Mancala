@@ -1,7 +1,7 @@
 package mancala;
-import java.io.*;
+import java.io.Serializable;
 
-public class Pit implements Serializable{
+public class Pit implements Serializable, Countable{
 
     private int numStones;
     private int savedStones;
@@ -12,28 +12,27 @@ public class Pit implements Serializable{
     }
 
     //Gets the number of stones in the pit
+    @Override
     /* default */int getStoneCount(){
         return numStones;
     }
     
     //Adds a stone to the pit
+    @Override
     /* default */void addStone(){
         numStones++;
     }
 
-    /* default */void setStone(final int num){
+    @Override
+    /* default */void addStones(final int num){
         numStones = num;
     }
 
+    @Override 
     //Removes and returns the stones from the pit
     /* default */int removeStones(){
         savedStones = numStones;
         numStones = 0;
         return savedStones;
-    }
-
-    @Override
-    public String toString(){
-        return Integer.toString(getStoneCount());
     }
 }

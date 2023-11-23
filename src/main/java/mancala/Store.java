@@ -1,8 +1,8 @@
 package mancala;
-import java.io.*;
+import java.io.Serializable;
 
 
-public class Store implements Serializable{
+public class Store implements Serializable, Countable{
 
     private int numStones;
     private int savedStones;
@@ -13,12 +13,19 @@ public class Store implements Serializable{
         savedStones = 0;
     }
     //Adds stones to stores
+    @Override
     /* default */ void addStones(final int amount){
         numStones += amount;
     }
 
+    @Override
+    /* default */ void addStone(){
+        numStones ++;
+    }
+
     //Empties the store and returns the number of stones that were in it
-    /* default */ int emptyStore(){
+    @Override
+    /* default */ int removeStones(){
         savedStones = numStones;
         numStones = 0;
         return savedStones;
@@ -30,18 +37,13 @@ public class Store implements Serializable{
     }
 
     //Gets the total number of stones in the store
-    /* default */ int getTotalStones(){
+    @Override
+    /* default */ int getStoneCount(){
         return numStones;
     }
 
     //Sets the owner of the store
     /* default */ void setOwner(final Player newPlayer){
         player = newPlayer;
-    }
-
-
-    @Override
-    public String toString(){
-        return Integer.toString(getTotalStones());
     }
 }
