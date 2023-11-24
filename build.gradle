@@ -17,7 +17,7 @@ compileJava {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'main.Main'
+        attributes 'Main-Class': 'Main'
     }
     archiveBaseName = 'Main'
 }

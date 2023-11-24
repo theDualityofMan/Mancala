@@ -1,10 +1,16 @@
 package mancala;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Saver implements Serializable{
 
     public static void saveObject(Serializable toSave, String filename){
         try{
+            if(!Files.exists(Paths.get("./assets"))){
+                Files.createDirectory(Paths.get("./assets"));
+            }
             FileOutputStream file = new FileOutputStream("assets/" + filename);
             ObjectOutputStream out = new ObjectOutputStream(file);
             out.writeObject(toSave);
