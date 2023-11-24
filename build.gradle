@@ -1,6 +1,8 @@
 plugins {
     id 'java'
-    id 'pmd'
+    id 'pmd' // Add the PMD plugin
+
+
 }
 
 repositories {
@@ -13,41 +15,33 @@ compileJava {
     targetCompatibility = 11
 }
 
-
-
 jar {
     manifest {
-        attributes 'Main-Class': 'Main'
+        attributes 'Main-Class': 'ui.MancalaUI'
     }
-    archiveBaseName = 'Main'
+    archiveBaseName = 'MancalaUI'
 }
 
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
 
 pmd {
     ignoreFailures = true
-    consoleOutput = false
     toolVersion = "6.55.0"
-    rulesMinimumPriority = 3
+    ignoreFailures = true
     ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml", "category/java/design.xml", "category/java/codestyle.xml"]
     pmdMain {
         excludes = [
                 '**/TextUI.java',
-                '**/Saver.java'
+                '**/test/**' 
         ]
     }
 }
 
 
-task echo;
-echo.doFirst {
-    println "To run the program from jar:\njava -jar build/libs/Main.jar"
-}
+
 test {
     useJUnitPlatform()
-}
-
-
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
