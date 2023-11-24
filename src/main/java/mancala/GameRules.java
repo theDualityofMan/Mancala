@@ -67,6 +67,10 @@ public abstract class GameRules {
         currentPlayer = playerNum;
     }
 
+    public int getCurPlayer() {
+        return currentPlayer;
+    }
+
     /**
      * Perform a move and return the number of stones added to the player's store.
      *
@@ -123,8 +127,8 @@ public abstract class GameRules {
         gameBoard.emptyStores();
     }
 
-    @Override
-    public String toString(){
+    // @Override
+    // public String toString(){
         
-    }
+    // }
 }

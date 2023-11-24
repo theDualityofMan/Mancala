@@ -53,14 +53,20 @@ public class MancalaGame implements Serializable{
         return false;
     }
 
-    public int move(int startPit){
+    public int move(int startPit) throws InvalidMoveException{
         int playerNum;
+        int isExtraMove = 0;
         if(currentPlayer == playerOne){
             playerNum = 1;
         } else{
             playerNum = 2;
         }
-        return board.moveStones(startPit, playerNum);
+        try {
+            isExtraMove = board.moveStones(startPit, playerNum);
+        } catch (InvalidMoveException e){
+            throw e;
+        }
+        return isExtraMove;
     }
 
     public void setBoard(GameRules theBoard){
@@ -68,14 +74,20 @@ public class MancalaGame implements Serializable{
     }
 
     public void setCurrentPlayer(Player player){
+        int playerNum;
         currentPlayer = player;
-        board.setCurrentPlayer(player);
+        if(player == playerOne){
+            playerNum = 1;
+        } else{
+            playerNum = 2;
+        }
+        board.setPlayer(playerNum);
     }
 
     public void setPlayers(Player onePlayer, Player twoPlayer){
         playerOne = onePlayer;
         playerTwo = twoPlayer;
-        registerPlayers(onePlayer, twoPlayer);
+        board.registerPlayers(onePlayer, twoPlayer);
     }
 
     public void startNewGame(){
@@ -84,29 +96,9 @@ public class MancalaGame implements Serializable{
 
    
     //Generates a string representation of the game
-    @Override
-    public String toString(){
-         String pGame = "";
-
-         pGame += "__________________________________________________\n\n ";
-
-        for(int x = 12; x >= 10; x--){
-            pGame += ("   (" + x + ")");
-        }
-
-        for(int x = 9; x >= 7; x--){
-            pGame += ("    (" + x + ")");
-        }
-
-        pGame += "\n" + gameBoard.toString() + "\n ";
+    // @Override
+    // public String toString(){
         
-        for(int x = 1; x <= 6; x++){
-            pGame += ("    (" + x + ")");
-        }
-
-        pGame += "\n__________________________________________________\n";
-
-        return pGame;
-    }
+    // }
 
 }

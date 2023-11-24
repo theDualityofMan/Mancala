@@ -8,7 +8,7 @@ public class KalahRules extends GameRules{
         if(startPit < 1 || startPit > 12 || getNumStones(startPit) == 0){
             throw new InvalidMoveException();
         }
-        int stoppingPoint = distributeStones(gameBoard.pitPos(startPit));
+        int stoppingPoint = distributeStones(startPit);
         if((stoppingPoint == 6 && playerNum == 1) || (stoppingPoint == 13 && playerNum == 2)){
             return 1;
         }
@@ -20,14 +20,14 @@ public class KalahRules extends GameRules{
     @Override
     public int distributeStones(final int startingPoint){
 
-        stonesToMove = gameBoard.removeStones(startingPoint);
-        gameBoard.setIterator(startingPoint + 1, currentPlayer, false);
+        int stonesToMove = getDataStructure().removeStones(startingPoint);
+        getDataStructure().setIterator(startingPoint + 1, getCurPlayer(), false);
         Countable currentSpot;
         for(int x = 0; x <= stonesToMove; x++){
-            currentSpot = gameBoard.next();
+            currentSpot = getDataStructure().next();
             currentSpot.addStone();
         }
-        return getIterator();
+        return getDataStructure().getIterator();
 
     }
 
@@ -35,11 +35,11 @@ public class KalahRules extends GameRules{
     @Override
     public int captureStones(final int stoppingPoint){
 
-        if(gameBoard.getNumStones(stoppingPoint) == 1 && 
-        ((stoppingPoint >= 0 && stoppingPoint <= 5 && currentPlayer == 1) || 
-        (stoppingPoint >= 7 && stoppingPoint <= 12 && currentPlayer == 2))){
-            return gameBoard.removeStones(stoppingPoint) + 
-            gameBoard.removeStones(stoppingPoint + (6 - stoppingPoint)*2);
+        if(getDataStructure().getNumStones(stoppingPoint) == 1 && 
+        ((stoppingPoint >= 0 && stoppingPoint <= 5 && getCurPlayer() == 1) || 
+        (stoppingPoint >= 7 && stoppingPoint <= 12 && getCurPlayer() == 2))){
+            return getDataStructure().removeStones(stoppingPoint) + 
+            getDataStructure().removeStones(stoppingPoint + (6 - stoppingPoint)*2);
         }
 
         return 0;

@@ -14,18 +14,18 @@ public class Store implements Serializable, Countable{
     }
     //Adds stones to stores
     @Override
-    /* default */ void addStones(final int amount){
+    public void addStones(final int amount){
         numStones += amount;
     }
 
     @Override
-    /* default */ void addStone(){
+    public void addStone(){
         numStones ++;
     }
 
     //Empties the store and returns the number of stones that were in it
     @Override
-    /* default */ int removeStones(){
+    public int removeStones(){
         savedStones = numStones;
         numStones = 0;
         return savedStones;
@@ -38,7 +38,7 @@ public class Store implements Serializable, Countable{
 
     //Gets the total number of stones in the store
     @Override
-    /* default */ int getStoneCount(){
+    public int getStoneCount(){
         return numStones;
     }
 

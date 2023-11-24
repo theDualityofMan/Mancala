@@ -8,7 +8,6 @@ public class Player implements Serializable{
 
     //Constructor
     public Player(){
-        name = "No name given";
         newPlayer.setUserName("Unnamed Player");
     }
 
@@ -33,7 +32,7 @@ public class Player implements Serializable{
 
     //Gets the count of the number of stones in the player's store where they collect stones 
     /* default */ int getStoreCount(){
-        return myStore.getTotalStones();
+        return myStore.getStoneCount();
     }
 
     //Sets the player's store

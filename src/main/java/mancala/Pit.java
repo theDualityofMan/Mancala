@@ -13,24 +13,24 @@ public class Pit implements Serializable, Countable{
 
     //Gets the number of stones in the pit
     @Override
-    /* default */int getStoneCount(){
+    public int getStoneCount(){
         return numStones;
     }
     
     //Adds a stone to the pit
     @Override
-    /* default */void addStone(){
+    public void addStone(){
         numStones++;
     }
 
     @Override
-    /* default */void addStones(final int num){
+    public void addStones(final int num){
         numStones = num;
     }
 
     @Override 
     //Removes and returns the stones from the pit
-    /* default */int removeStones(){
+    public int removeStones(){
         savedStones = numStones;
         numStones = 0;
         return savedStones;
