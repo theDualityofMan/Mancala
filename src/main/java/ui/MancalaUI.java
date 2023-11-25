@@ -22,6 +22,7 @@ public class MancalaUI extends JFrame{
     private JLabel messageLabel;
     private JMenuBar menuBar;
     private MancalaGame game;
+    private Saver saveGame;
     private PositionAwareButton[][] buttons;
 
     public MancalaUI(String title){
@@ -29,6 +30,8 @@ public class MancalaUI extends JFrame{
         basicSetUp(title);
         setupGameContainer();
         add(gameContainer, BorderLayout.CENTER);
+        makeMenu();
+        setJMenuBar(menuBar);
         pack();
     }
     private void basicSetUp(String title){
@@ -44,8 +47,36 @@ public class MancalaUI extends JFrame{
         temp.add(new JLabel("Mancala!"));
         return temp;
     }
+
+    private JPanel makeMancalaGrid(int tall, int wide) {
+        JPanel panel = new JPanel();
+        buttons = new PositionAwareButton[tall][wide];
+        panel.setLayout(new GridLayout(wide, tall));
+        for (int y = 0; y < wide; y++) {
+            for (int x = 0; x < tall; x++) {
+                buttons[y][x] = new PositionAwareButton();
+                buttons[y][x].setAcross(x + 1);
+                buttons[y][x].setDown(y + 1);
+                buttons[y][x].addActionListener
+                panel.add(buttons[y][x]);
+            }
+        }
+        return panel;
+    }
+
+    private void makeMenu() {
+        menuBar = new JMenuBar();
+        JMenu menu = new JMenu("Menu");
+        // Customize the menu item label
+        JMenuItem item = new JMenuItem("Save Game");
+
+        menu.add(item);
+        menuBar.add(menu);
+    }
+
     public void setupGameContainer(){
         gameContainer.add(startupMessage());
+        gameContainer.add(makeMancalaGrid(3, 8));
     }
 
     public static void main(String args[]){

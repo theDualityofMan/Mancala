@@ -30,7 +30,6 @@ dependencies {
 pmd {
     ignoreFailures = true
     toolVersion = "6.55.0"
-    ignoreFailures = true
     ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml", "category/java/design.xml", "category/java/codestyle.xml"]
     pmdMain {
         excludes = [
