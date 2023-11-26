@@ -10,10 +10,6 @@ public class MancalaGame implements Serializable{
     private Player currentPlayer;
     private Player winner;
 
-    public MancalaGame(){
-
-    }
-
     public GameRules getBoard(){
         return board;
     }
@@ -39,24 +35,30 @@ public class MancalaGame implements Serializable{
     }
 
     public Player getWinner(){
+        if(getStoreCount(playerOne) > getStoreCount(playerTwo)){
+            winner = playerOne;
+        } else{
+            winner = playerTwo;
+        }
         return winner;
     }
 
     public boolean isGameOver(){
-        if(board.isSideEmpty(0) && currentPlayer == playerOne){
-            winner = playerOne;
-            return true;
+        if(board.isSideEmpty(1) && currentPlayer == playerOne){
+            board.clearSide(2);
         } else if(board.isSideEmpty(7) && currentPlayer == playerTwo){
-            winner = playerTwo;
-            return true;
+            board.clearSide(1);
+        } else{ 
+            return false;
         }
-        return false;
+        return true;
+        
     }
 
-    public int move(int startPit) throws InvalidMoveException{
+    public int move(int startPit){
         int playerNum;
         int isExtraMove = 0;
-        if(currentPlayer == playerOne){
+        if(startPit >= 1 && startPit <= 6){
             playerNum = 1;
         } else{
             playerNum = 2;
@@ -64,13 +66,14 @@ public class MancalaGame implements Serializable{
         try {
             isExtraMove = board.moveStones(startPit, playerNum);
         } catch (InvalidMoveException e){
-            throw e;
+            isExtraMove = -1;
         }
         return isExtraMove;
     }
 
     public void setBoard(GameRules theBoard){
         board = theBoard;
+        board.resetBoard();
     }
 
     public void setCurrentPlayer(Player player){

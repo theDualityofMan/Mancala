@@ -42,8 +42,8 @@ public abstract class GameRules {
      */
     boolean isSideEmpty(int pitNum) {
         boolean sideEmpty = true;
-        if(pitNum >= 0 && pitNum <= 5){
-            for(int x = 0;x <= 5;x++){
+        if(pitNum >= 1 && pitNum <= 6){
+            for(int x = 1;x <= 6;x++){
                 if(gameBoard.getNumStones(x) != 0){
                     sideEmpty = false;
                 }
@@ -125,6 +125,18 @@ public abstract class GameRules {
     public void resetBoard() {
         gameBoard.setUpPits();
         gameBoard.emptyStores();
+    }
+
+    public void clearSide(int playerNum){
+        if(playerNum == 2){
+            for(int x = 12; x >= 7; x--){
+                getDataStructure().addToStore(2, getDataStructure().removeStones(x));
+            }
+        } else {
+            for(int x = 1; x <= 6; x++){
+                getDataStructure().addToStore(1, getDataStructure().removeStones(x));
+            }
+        }
     }
 
     // @Override
