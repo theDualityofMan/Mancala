@@ -22,7 +22,7 @@ public class Saver implements Serializable{
         }
     }
 
-    public static Serializable loadObject(String filename){
+    public static Serializable loadObject(String filename) throws IOException{
         Serializable object = null;
         try{
             FileInputStream file = new FileInputStream("assets/" + filename);
@@ -32,7 +32,7 @@ public class Saver implements Serializable{
             file.close();
             System.out.println("Object has been deserialized");
         } catch (IOException e){
-            System.out.println(e);
+            throw e;
         } catch (ClassNotFoundException e){
             System.out.println(e);
         }

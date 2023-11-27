@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class MancalaGame implements Serializable{
 
-    private GameRules board;
+    private AbstractGameRules board;
     private Player playerOne;
     private Player playerTwo;
     private Player currentPlayer;
     private Player winner;
 
-    public GameRules getBoard(){
+    public AbstractGameRules getBoard(){
         return board;
     }
 
@@ -57,21 +57,25 @@ public class MancalaGame implements Serializable{
 
     public int move(int startPit){
         int playerNum;
-        int isExtraMove = 0;
+        int numStored;
         if(startPit >= 1 && startPit <= 6){
             playerNum = 1;
         } else{
             playerNum = 2;
         }
         try {
-            isExtraMove = board.moveStones(startPit, playerNum);
+            numStored = board.moveStones(startPit, playerNum);
         } catch (InvalidMoveException e){
-            isExtraMove = -1;
+            return -1;
         }
-        return isExtraMove;
+        return numStored;
     }
 
-    public void setBoard(GameRules theBoard){
+    public boolean isExtraTurn(){
+        return board.isExtraTurn();
+    }
+
+    public void setBoard(AbstractGameRules theBoard){
         board = theBoard;
         board.resetBoard();
     }

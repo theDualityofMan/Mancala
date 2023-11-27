@@ -1,6 +1,19 @@
 package mancala;
 
-public class KalahRules extends GameRules{
+public class KalahRules extends AbstractGameRules{
+
+    private int stoppingPoint;
+    private boolean extraTurn;
+
+    public KalahRules(){
+        stoppingPoint = 0;
+        extraTurn = false;
+    }
+
+    @Override
+    public boolean isExtraTurn(){
+        return extraTurn;
+    }
 
     //Moves stones for the player starting from a specific pit
     @Override
@@ -8,9 +21,11 @@ public class KalahRules extends GameRules{
         if(startPit < 1 || startPit > 12 || getNumStones(startPit) == 0 || getCurPlayer() != playerNum){
             throw new InvalidMoveException();
         }
-        int stoppingPoint = distributeStones(startPit);
+        distributeStones(startPit);
         if((stoppingPoint == 6 && playerNum == 1) || (stoppingPoint == 13 && playerNum == 2)){
-            return 1;
+            extraTurn = true;
+        } else{
+            extraTurn = false;
         }
         if(stoppingPoint <= 6){
             stoppingPoint ++;
@@ -18,7 +33,7 @@ public class KalahRules extends GameRules{
         if(stoppingPoint >= 1 && stoppingPoint <= 12){
             getDataStructure().addToStore(playerNum, captureStones(stoppingPoint));
         }
-        return 0;
+        return getDataStructure().getStoreCount(playerNum);
     }
 
 
@@ -33,7 +48,9 @@ public class KalahRules extends GameRules{
             currentSpot = getDataStructure().next();
             currentSpot.addStone();
         }
-        return getDataStructure().getIterator();
+        stoppingPoint = getDataStructure().getIterator();
+
+        return stonesToMove;
 
     }
 
@@ -44,8 +61,7 @@ public class KalahRules extends GameRules{
         if(getDataStructure().getNumStones(stoppingPoint) == 1 && 
         ((stoppingPoint >= 1 && stoppingPoint <= 6 && getCurPlayer() == 1) || 
         (stoppingPoint >= 7 && stoppingPoint <= 12 && getCurPlayer() == 2))){
-            return getDataStructure().removeStones(stoppingPoint) + 
-            getDataStructure().removeStones(stoppingPoint + ((6 - stoppingPoint)*2)+1);
+            return getDataStructure().removeStones(stoppingPoint) + getDataStructure().removeStones(stoppingPoint + ((6 - stoppingPoint)*2) + 1);
         }
 
         return 0;

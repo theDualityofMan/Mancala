@@ -11,6 +11,14 @@ public class Player implements Serializable{
         newPlayer.setUserName("Unnamed Player");
     }
 
+    public UserProfile getUserProfile(){
+        return newPlayer;
+    }
+
+    public void setUserProfile(UserProfile newProfile){
+        newPlayer = newProfile;
+    }
+
     public Player(final String newName){
         newPlayer.setUserName(newName);
     }

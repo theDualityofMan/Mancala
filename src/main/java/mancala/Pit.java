@@ -25,7 +25,7 @@ public class Pit implements Serializable, Countable{
 
     @Override
     public void addStones(final int num){
-        numStones = num;
+        numStones += num;
     }
 
     @Override 

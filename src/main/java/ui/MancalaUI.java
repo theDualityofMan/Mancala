@@ -21,6 +21,9 @@ import mancala.MancalaGame;
 import mancala.Player;
 import mancala.KalahRules;
 import mancala.AyoRules;
+import mancala.UserProfile;
+
+import java.io.*;
 
 
 public class MancalaUI extends JFrame{
@@ -32,17 +35,29 @@ public class MancalaUI extends JFrame{
     private PositionAwareButton[][] buttons;
     private Player playerOne;
     private Player playerTwo;
+    private JLabel p1n;
+    private JLabel p2n;
+    private JLabel p1KalahWon;
+    private JLabel p1KalahPlayed;
+    private JLabel p1AyoWon;
+    private JLabel p1AyoPlayed;
+    private JLabel p2KalahWon;
+    private JLabel p2KalahPlayed;
+    private JLabel p2AyoWon;
+    private JLabel p2AyoPlayed;
+    private String gameType;
 
     public MancalaUI(String title){
         super();
-        playerOne = new Player();
-        playerTwo = new Player();
+        playerOne = new Player("Player One");
+        playerTwo = new Player("Player Two");
         game = new MancalaGame();
         basicSetUp(title);
         setupGameContainer();
         add(gameContainer, BorderLayout.CENTER);
         add(makeButtonPanel(), BorderLayout.WEST);
         add(messageBox(), BorderLayout.SOUTH);
+        add(userProfileDisplay(), BorderLayout.EAST);
         makeMenu();
         setJMenuBar(menuBar);
         pack();
@@ -55,10 +70,12 @@ public class MancalaUI extends JFrame{
 
     protected void newKalahGame(){
         game.setBoard(new KalahRules());
+        gameType = "kalah";
     }
 
     protected void newAyoGame(){
         game.setBoard(new AyoRules());
+        gameType = "ayo";
     }
 
     protected void setPlayers(){
@@ -117,29 +134,26 @@ public class MancalaUI extends JFrame{
         buttonPanel.add(kalah);
         buttonPanel.add(ayo);
 
-        JLabel a = new JLabel("Enter P1 Name");
-        JLabel b = new JLabel("Enter P2 Name");
-
-        JTextField p1 = new JTextField(7);
-        JTextField p2 = new JTextField(7);
+        JTextField p1 = new JTextField("Enter P1 Name");
+        JTextField p2 = new JTextField("Enter P2 Name");
 
         JButton p1E = new JButton("Enter");
         JButton p2E = new JButton("Enter");
 
         p1E.addActionListener(e -> {
             playerOne.setName(p1.getText());
-            p1.setText(" ");
+            p1.setText("Enter P1 Name");
+            p1n.setText("    " + playerOne.getName()+ "    ");
         });
         p2E.addActionListener(e -> {
             playerTwo.setName(p2.getText());
-            p2.setText(" ");
+            p2.setText("Enter P2 Name");
+            p2n.setText("    " + playerTwo.getName()+ "    ");
         });
 
-        buttonPanel.add(a);
         buttonPanel.add(p1);
         buttonPanel.add(p1E);
 
-        buttonPanel.add(b);
         buttonPanel.add(p2);
         buttonPanel.add(p2E);
 
@@ -174,23 +188,44 @@ public class MancalaUI extends JFrame{
     private void addButtonListener(int x, int y, int num){
         buttons[x][y].addActionListener(e -> {
                 if(!game.isGameOver()){
-                    final int result = move(num);
-                    if(game.isGameOver()){
+                    if(move(num) == -1){
+                        changeMessage("Invalid move!");
+                    } else if(game.isGameOver()){
                         changeMessage(game.getWinner().getName() + " wins!");
+                        game.getWinner().getUserProfile().incGamePlayed(gameType);
+                        if(game.getWinner() == playerOne){
+                            playerTwo.getUserProfile().incGamePlayed(gameType);
+                        } else {
+                            playerOne.getUserProfile().incGamePlayed(gameType);
+                        }
+                        game.getWinner().getUserProfile().incGameWon(gameType);
+                        updateData();
                     } else{
-                        if(result == 0){
+                        if(!game.isExtraTurn()){
                             swapPlayer(game.getCurrentPlayer());
                             changeMessage(game.getCurrentPlayer().getName() + "'s turn");
-                        } else if (result == 1){
+                        } else{
                             changeMessage(game.getCurrentPlayer().getName() + " gets an extra turn!");
-                        } else if (result == -1){
-                            changeMessage("Invalid move!");
                         }
                     }
-                    updatePits();
+                    updatePits(); 
                 }
-        }); 
+        });
 
+
+    }
+
+    private void updateData(){
+        p1n.setText("    " + playerOne.getName()+ "    ");
+        p2n.setText("    " + playerTwo.getName()+ "    ");
+        p1KalahPlayed.setText("Kalah games played: " +  playerOne.getUserProfile().getKalahPlayed());
+        p2KalahPlayed.setText("Kalah games played: " +  playerTwo.getUserProfile().getKalahPlayed());
+        p1AyoPlayed.setText("Ayo games played: " +  playerOne.getUserProfile().getAyoPlayed());
+        p2AyoPlayed.setText("Ayo games played: " +  playerTwo.getUserProfile().getAyoPlayed());
+        p1KalahWon.setText("Kalah games won: " +  playerOne.getUserProfile().getKalahWon());
+        p2KalahWon.setText("Kalah games won: " +  playerTwo.getUserProfile().getKalahWon());
+        p1AyoWon.setText("Ayo games won: " +  playerOne.getUserProfile().getAyoWon());
+        p2AyoWon.setText("Ayo games won: " +  playerTwo.getUserProfile().getAyoWon());
     }
 
     private JPanel messageBox(){
@@ -204,14 +239,116 @@ public class MancalaUI extends JFrame{
         messageLabel.setText(message);
     }
 
+
     private void makeMenu() {
         menuBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
         // Customize the menu item label
-        JMenuItem item = new JMenuItem("Save Game");
+        JMenuItem save = new JMenuItem("Save Game");
+        JTextField saveName = new JTextField("Filename");
+        JMenuItem load = new JMenuItem("Load Game");
+        JTextField loadName = new JTextField("Filename");
 
-        menu.add(item);
+        JMenuItem saveU1 = new JMenuItem("Save User One");
+        JTextField saveU1Name = new JTextField("Filename");
+        JMenuItem loadU1 = new JMenuItem("Load User One");
+        JTextField loadU1Name = new JTextField("Filename");
+
+        JMenuItem saveU2 = new JMenuItem("Save User Two");
+        JTextField saveU2Name = new JTextField("Filename");
+        JMenuItem loadU2 = new JMenuItem("Load User Two");
+        JTextField loadU2Name = new JTextField("Filename");
+
+        save.addActionListener(e -> {
+            saveGame.saveObject(game, saveName.getText());
+            saveName.setText("FileName");
+        });
+        load.addActionListener(e -> {
+            try{
+                game = (MancalaGame) saveGame.loadObject(loadName.getText());
+            } catch (IOException x){
+                System.out.println(x);
+            }
+            updatePits();
+            loadName.setText("FileName");
+        });
+        saveU1.addActionListener(e -> {
+            saveGame.saveObject(playerOne.getUserProfile(), saveU1Name.getText());
+            saveU1Name.setText("FileName");
+        });
+        loadU1.addActionListener(e -> {
+            try{
+                playerOne.setUserProfile((UserProfile)saveGame.loadObject(loadU1Name.getText()));
+            } catch (IOException x){
+                System.out.println(x);
+            }
+            loadU1Name.setText("FileName");
+            updateData();
+        });
+        saveU2.addActionListener(e -> {
+            saveGame.saveObject(playerTwo.getUserProfile(), saveU2Name.getText());
+            saveU2Name.setText("FileName");
+        });
+        loadU2.addActionListener(e -> {
+            try{
+                playerTwo.setUserProfile((UserProfile)saveGame.loadObject(loadU2Name.getText()));
+            } catch (IOException x){
+                System.out.println(x);
+            }
+            loadU2Name.setText("FileName");
+            updateData();
+        });
+
+        menu.add(saveName);
+        menu.add(save);
+        menu.add(loadName);
+        menu.add(load);
+
+        menu.add(saveU1Name);
+        menu.add(saveU1);
+        menu.add(loadU1Name);
+        menu.add(loadU1);
+        
+        menu.add(saveU2Name);
+        menu.add(saveU2);
+        menu.add(loadU2Name);
+        menu.add(loadU2);
+
         menuBar.add(menu);
+    }
+
+    private JPanel userProfileDisplay(){
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        p1n = new JLabel("    " + playerOne.getName()+ "    ");
+        p2n = new JLabel("    " + playerTwo.getName()+ "    ");
+
+        p1KalahPlayed = new JLabel("Kalah games played: " +  playerOne.getUserProfile().getKalahPlayed());
+        p2KalahPlayed = new JLabel("Kalah games played: " +  playerTwo.getUserProfile().getKalahPlayed());
+
+        p1AyoPlayed = new JLabel("Ayo games played: " +  playerOne.getUserProfile().getAyoPlayed());
+        p2AyoPlayed = new JLabel("Ayo games played: " +  playerTwo.getUserProfile().getAyoPlayed());
+
+        p1KalahWon = new JLabel("Kalah games won: " +  playerOne.getUserProfile().getKalahWon());
+        p2KalahWon = new JLabel("Kalah games won: " +  playerTwo.getUserProfile().getKalahWon());
+
+        p1AyoWon = new JLabel("Ayo games won: " +  playerOne.getUserProfile().getAyoWon());
+        p2AyoWon = new JLabel("Ayo games won: " +  playerTwo.getUserProfile().getAyoWon());
+
+        panel.add(p1n);
+        panel.add(p1KalahPlayed);
+        panel.add(p1KalahWon);
+        panel.add(p1AyoPlayed);
+        panel.add(p1AyoWon);
+        panel.add(new JLabel("               "));
+        panel.add(p2n);
+        panel.add(p2KalahPlayed);
+        panel.add(p2KalahWon);
+        panel.add(p2AyoPlayed);
+        panel.add(p2AyoWon);
+
+        return panel;
     }
 
     public void setupGameContainer(){

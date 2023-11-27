@@ -34,7 +34,8 @@ pmd {
     pmdMain {
         excludes = [
                 '**/ui/**',
-                '**MancalaDataStructure.java'
+                '**MancalaDataStructure.java',
+                '**/test/**'
         ]
     }
 }

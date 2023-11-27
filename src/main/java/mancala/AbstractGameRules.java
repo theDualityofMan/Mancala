@@ -1,17 +1,18 @@
 package mancala;
+import java.io.Serializable;
 
 /**
  * Abstract class representing the rules of a Mancala game.
  * KalahRules and AyoRules will subclass this class.
  */
-public abstract class GameRules {
+public abstract class AbstractGameRules implements Serializable{
     private MancalaDataStructure gameBoard;
     private int currentPlayer = 1; // Player number (1 or 2)
 
     /**
      * Constructor to initialize the game board.
      */
-    public GameRules() {
+    public AbstractGameRules() {
         gameBoard = new MancalaDataStructure();
     }
 
@@ -21,7 +22,7 @@ public abstract class GameRules {
      * @param pitNum The number of the pit.
      * @return The number of stones in the pit.
      */
-    public int getNumStones(int pitNum) {
+    public int getNumStones(final int pitNum) {
         return gameBoard.getNumStones(pitNum);
     }
 
@@ -40,8 +41,9 @@ public abstract class GameRules {
      * @param pitNum The number of a pit in the side.
      * @return True if the side is empty, false otherwise.
      */
-    boolean isSideEmpty(int pitNum) {
+    boolean isSideEmpty(final int pitNum) {
         boolean sideEmpty = true;
+
         if(pitNum >= 1 && pitNum <= 6){
             for(int x = 1;x <= 6;x++){
                 if(gameBoard.getNumStones(x) != 0){
@@ -63,7 +65,7 @@ public abstract class GameRules {
      *
      * @param playerNum The player number (1 or 2).
      */
-    public void setPlayer(int playerNum) {
+    public void setPlayer(final int playerNum) {
         currentPlayer = playerNum;
     }
 
@@ -88,7 +90,7 @@ public abstract class GameRules {
      * @return The number of stones distributed.
      */
     abstract int distributeStones(int startPit);
-
+    
     /**
      * Capture stones from the opponent's pit and return the number captured.
      *
@@ -97,13 +99,15 @@ public abstract class GameRules {
      */
     abstract int captureStones(int stoppingPoint);
 
+    abstract boolean isExtraTurn();
+
     /**
      * Register two players and set their stores on the board.
      *
      * @param one The first player.
      * @param two The second player.
      */
-    public void registerPlayers(Player one, Player two) {
+    public void registerPlayers(final Player one, final Player two) {
         // this method can be implemented in the abstract class.
         Store storeOne = new Store();
         storeOne.setOwner(one);
@@ -127,7 +131,7 @@ public abstract class GameRules {
         gameBoard.emptyStores();
     }
 
-    public void clearSide(int playerNum){
+    public void clearSide(final int playerNum){
         if(playerNum == 2){
             for(int x = 12; x >= 7; x--){
                 getDataStructure().addToStore(2, getDataStructure().removeStones(x));
