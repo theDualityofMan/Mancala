@@ -1,10 +1,14 @@
 package mancala;
 
-public class AyoRules extends AbstractGameRules{    
+import java.io.Serializable;
+
+public class AyoRules extends GameRules implements Serializable{    
+    public static final long serialVersionUID = 4328743;
 
     private int stoppingPoint;
 
     public AyoRules(){
+        super();
         stoppingPoint = 0;
     }
 
@@ -25,7 +29,7 @@ public class AyoRules extends AbstractGameRules{
             if(stoppingPoint <= 6){
                 stoppingPoint++;
             }
-            getDataStructure().addToStore(playerNum, captureStones(stoppingPoint));
+            addToStore(playerNum, captureStones(stoppingPoint));
         }
         return getDataStructure().getStoreCount(playerNum);
     }
@@ -36,12 +40,12 @@ public class AyoRules extends AbstractGameRules{
     public int distributeStones(final int startingPoint){
         stoppingPoint = startingPoint;
         getDataStructure().setIterator(stoppingPoint, getCurPlayer(), true);
-        int firstStones = getDataStructure().getNumStones(stoppingPoint);
+        int firstStones = getNumStones(stoppingPoint);
         int stonesToMove;
         Countable currentSpot;
 
         do{
-            stonesToMove = getDataStructure().removeStones(stoppingPoint);
+            stonesToMove = removeStones(stoppingPoint);
             for(int x = 0; x < stonesToMove; x++){
                 currentSpot = getDataStructure().next();
                 currentSpot.addStone();
@@ -56,7 +60,7 @@ public class AyoRules extends AbstractGameRules{
                 break;
             }
 
-        } while (getDataStructure().getNumStones(stoppingPoint) > 1);
+        } while (getNumStones(stoppingPoint) > 1);
 
         return firstStones;
 
@@ -66,10 +70,10 @@ public class AyoRules extends AbstractGameRules{
     @Override
     public int captureStones(final int stoppingPoint){
         int captured = 0;
-        if(getDataStructure().getNumStones(stoppingPoint) == 1 && 
-        (stoppingPoint >= 1 && stoppingPoint <= 6 && getCurPlayer() == 1) || 
-        (stoppingPoint >= 7 && stoppingPoint <= 12 && getCurPlayer() == 2)){
-            captured = getDataStructure().removeStones(stoppingPoint + ((6 - stoppingPoint)*2)+1);
+        if(getNumStones(stoppingPoint) == 1 && 
+        stoppingPoint >= 1 && stoppingPoint <= 6 && getCurPlayer() == 1 || 
+        stoppingPoint >= 7 && stoppingPoint <= 12 && getCurPlayer() == 2){
+            captured = removeStones(stoppingPoint + ((6 - stoppingPoint)*2)+1);
         }
 
         return captured;

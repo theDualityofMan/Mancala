@@ -3,7 +3,7 @@ import java.io.Serializable;
 
 
 public class Store implements Serializable, Countable{
-
+    public static final long serialVersionUID = 4328744;
     private int numStones;
     private int savedStones;
     private Player player;
@@ -32,7 +32,7 @@ public class Store implements Serializable, Countable{
     }
 
     //Gets the owner of the store
-    /* default */ Player getOwner(){
+    public  Player getOwner(){
         return player;
     }
 
@@ -43,7 +43,7 @@ public class Store implements Serializable, Countable{
     }
 
     //Sets the owner of the store
-    /* default */ void setOwner(final Player newPlayer){
+    public void setOwner(final Player newPlayer){
         player = newPlayer;
     }
 }

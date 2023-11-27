@@ -260,39 +260,51 @@ public class MancalaUI extends JFrame{
         JTextField loadU2Name = new JTextField("Filename");
 
         save.addActionListener(e -> {
-            saveGame.saveObject(game, saveName.getText());
+            try{
+                saveGame.saveObject(game, saveName.getText());
+            } catch (Exception x){
+                System.out.println(x);
+            }
             saveName.setText("FileName");
         });
         load.addActionListener(e -> {
             try{
                 game = (MancalaGame) saveGame.loadObject(loadName.getText());
-            } catch (IOException x){
+            } catch (Exception x){
                 System.out.println(x);
             }
             updatePits();
             loadName.setText("FileName");
         });
         saveU1.addActionListener(e -> {
-            saveGame.saveObject(playerOne.getUserProfile(), saveU1Name.getText());
+            try{
+                saveGame.saveObject(playerOne.getUserProfile(), saveU1Name.getText());
+            } catch (Exception x){
+                System.out.println(x);
+            }
             saveU1Name.setText("FileName");
         });
         loadU1.addActionListener(e -> {
             try{
                 playerOne.setUserProfile((UserProfile)saveGame.loadObject(loadU1Name.getText()));
-            } catch (IOException x){
+            } catch (Exception x){
                 System.out.println(x);
             }
             loadU1Name.setText("FileName");
             updateData();
         });
         saveU2.addActionListener(e -> {
-            saveGame.saveObject(playerTwo.getUserProfile(), saveU2Name.getText());
+            try{
+                saveGame.saveObject(playerTwo.getUserProfile(), saveU2Name.getText());
+            } catch (Exception x){
+                System.out.println(x);
+            }
             saveU2Name.setText("FileName");
         });
         loadU2.addActionListener(e -> {
             try{
                 playerTwo.setUserProfile((UserProfile)saveGame.loadObject(loadU2Name.getText()));
-            } catch (IOException x){
+            } catch (Exception x){
                 System.out.println(x);
             }
             loadU2Name.setText("FileName");

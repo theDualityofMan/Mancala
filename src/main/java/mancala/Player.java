@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 public class Player implements Serializable{
 
+    public static final long serialVersionUID = 4338743;
     private Store myStore;
     private UserProfile newPlayer = new UserProfile();
 

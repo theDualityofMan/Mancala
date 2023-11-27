@@ -1,16 +1,16 @@
 package mancala;
-import java.util.ArrayList;
 import java.io.Serializable;
 
 public class MancalaGame implements Serializable{
+    public static final long serialVersionUID = 348743;
 
-    private AbstractGameRules board;
+    private GameRules board;
     private Player playerOne;
     private Player playerTwo;
     private Player currentPlayer;
     private Player winner;
 
-    public AbstractGameRules getBoard(){
+    public GameRules getBoard(){
         return board;
     }
 
@@ -75,7 +75,7 @@ public class MancalaGame implements Serializable{
         return board.isExtraTurn();
     }
 
-    public void setBoard(AbstractGameRules theBoard){
+    public void setBoard(GameRules theBoard){
         board = theBoard;
         board.resetBoard();
     }

@@ -5,14 +5,16 @@ import java.io.Serializable;
  * Abstract class representing the rules of a Mancala game.
  * KalahRules and AyoRules will subclass this class.
  */
-public abstract class AbstractGameRules implements Serializable{
+public abstract class GameRules implements Serializable{
+    public static final long serialVersionUID = 4234743;
+    private static final int PLAYER_TWO = 2;
     private MancalaDataStructure gameBoard;
     private int currentPlayer = 1; // Player number (1 or 2)
 
     /**
      * Constructor to initialize the game board.
      */
-    public AbstractGameRules() {
+    public GameRules() {
         gameBoard = new MancalaDataStructure();
     }
 
@@ -22,7 +24,7 @@ public abstract class AbstractGameRules implements Serializable{
      * @param pitNum The number of the pit.
      * @return The number of stones in the pit.
      */
-    public int getNumStones(final int pitNum) {
+    /* default */ int getNumStones(final int pitNum) {
         return gameBoard.getNumStones(pitNum);
     }
 
@@ -31,7 +33,7 @@ public abstract class AbstractGameRules implements Serializable{
      *
      * @return The MancalaDataStructure.
      */
-    MancalaDataStructure getDataStructure() {
+    /* default */MancalaDataStructure getDataStructure() {
         return gameBoard;
     }
 
@@ -41,7 +43,7 @@ public abstract class AbstractGameRules implements Serializable{
      * @param pitNum The number of a pit in the side.
      * @return True if the side is empty, false otherwise.
      */
-    boolean isSideEmpty(final int pitNum) {
+    /* default */boolean isSideEmpty(final int pitNum) {
         boolean sideEmpty = true;
 
         if(pitNum >= 1 && pitNum <= 6){
@@ -65,11 +67,11 @@ public abstract class AbstractGameRules implements Serializable{
      *
      * @param playerNum The player number (1 or 2).
      */
-    public void setPlayer(final int playerNum) {
+    /* default */ void setPlayer(final int playerNum) {
         currentPlayer = playerNum;
     }
 
-    public int getCurPlayer() {
+    /* default */ int getCurPlayer() {
         return currentPlayer;
     }
 
@@ -81,7 +83,7 @@ public abstract class AbstractGameRules implements Serializable{
      * @return The number of stones added to the player's store.
      * @throws InvalidMoveException If the move is invalid.
      */
-    public abstract int moveStones(int startPit, int playerNum) throws InvalidMoveException;
+    /* default */ abstract int moveStones(int startPit, int playerNum) throws InvalidMoveException;
 
     /**
      * Distribute stones from a pit and return the number distributed.
@@ -89,7 +91,7 @@ public abstract class AbstractGameRules implements Serializable{
      * @param startPit The starting pit for distribution.
      * @return The number of stones distributed.
      */
-    abstract int distributeStones(int startPit);
+    /* default */abstract int distributeStones(int startPit);
     
     /**
      * Capture stones from the opponent's pit and return the number captured.
@@ -97,9 +99,9 @@ public abstract class AbstractGameRules implements Serializable{
      * @param stoppingPoint The stopping point for capturing stones.
      * @return The number of stones captured.
      */
-    abstract int captureStones(int stoppingPoint);
+    /* default */abstract int captureStones(int stoppingPoint);
 
-    abstract boolean isExtraTurn();
+    /* default */abstract boolean isExtraTurn();
 
     /**
      * Register two players and set their stores on the board.
@@ -107,7 +109,7 @@ public abstract class AbstractGameRules implements Serializable{
      * @param one The first player.
      * @param two The second player.
      */
-    public void registerPlayers(final Player one, final Player two) {
+    /* default */ void registerPlayers(final Player one, final Player two) {
         // this method can be implemented in the abstract class.
         Store storeOne = new Store();
         storeOne.setOwner(one);
@@ -126,19 +128,27 @@ public abstract class AbstractGameRules implements Serializable{
     /**
      * Reset the game board by setting up pits and emptying stores.
      */
-    public void resetBoard() {
+    /* default */ void resetBoard() {
         gameBoard.setUpPits();
         gameBoard.emptyStores();
     }
 
-    public void clearSide(final int playerNum){
-        if(playerNum == 2){
+    /* default */ void addToStore(final int playerNum, final int added){
+        gameBoard.addToStore(playerNum, added);
+    }
+
+    /* default */ int removeStones(final int pitNum){
+        return gameBoard.removeStones(pitNum);
+    }
+
+    /* default */ void clearSide(final int playerNum){
+        if(playerNum == PLAYER_TWO){
             for(int x = 12; x >= 7; x--){
-                getDataStructure().addToStore(2, getDataStructure().removeStones(x));
+                addToStore(2, removeStones(x));
             }
         } else {
             for(int x = 1; x <= 6; x++){
-                getDataStructure().addToStore(1, getDataStructure().removeStones(x));
+                addToStore(1, removeStones(x));
             }
         }
     }

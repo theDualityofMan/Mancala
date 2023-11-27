@@ -1,12 +1,19 @@
 package mancala;
 import java.io.Serializable;
 public class UserProfile implements Serializable{
+    public static final long serialVersionUID = 99999743;
     private String userName;
-    private int nKalahPlayed = 0;
-    private int nKalahWon = 0;
-    private int nAyoPlayed = 0;
-    private int nAyoWon = 0;
+    private int nKalahPlayed;
+    private int nKalahWon;
+    private int nAyoPlayed;
+    private int nAyoWon;
 
+    public UserProfile(){
+        nKalahPlayed = 0;
+        nKalahWon = 0;
+        nAyoPlayed = 0;
+        nAyoWon = 0;
+    }
     public void setUserName(final String newName){
         userName = newName;
     }
