@@ -5,7 +5,6 @@ This program simulates a two-person game of mancala, using Java's swing library 
 ## Description
 
 Uses multiple classes in two packages - package mancala to handle data structures and game logic, and ui to handle the GUI. Each class uses OO design to create methods. 
-Optional test folder is included. 
 To play a pit, click on it and the stones will distribute and the boarrd will update. There are options to enter player names and save and load both game states and user profiles.
 
 ### Dependencies

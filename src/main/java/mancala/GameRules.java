@@ -83,7 +83,7 @@ public abstract class GameRules implements Serializable{
      * @return The number of stones added to the player's store.
      * @throws InvalidMoveException If the move is invalid.
      */
-    /* default */ abstract int moveStones(int startPit, int playerNum) throws InvalidMoveException;
+    public abstract int moveStones(int startPit, int playerNum) throws InvalidMoveException;
 
     /**
      * Distribute stones from a pit and return the number distributed.
@@ -91,7 +91,7 @@ public abstract class GameRules implements Serializable{
      * @param startPit The starting pit for distribution.
      * @return The number of stones distributed.
      */
-    /* default */abstract int distributeStones(int startPit);
+    public abstract int distributeStones(int startPit);
     
     /**
      * Capture stones from the opponent's pit and return the number captured.
@@ -99,9 +99,12 @@ public abstract class GameRules implements Serializable{
      * @param stoppingPoint The stopping point for capturing stones.
      * @return The number of stones captured.
      */
-    /* default */abstract int captureStones(int stoppingPoint);
+    public abstract int captureStones(int stoppingPoint);
 
-    /* default */abstract boolean isExtraTurn();
+    /**
+     * Determines whether the player is awarded an extra turn, return boolean
+     */
+    public abstract boolean isExtraTurn();
 
     /**
      * Register two players and set their stores on the board.
@@ -153,8 +156,8 @@ public abstract class GameRules implements Serializable{
         }
     }
 
-    // @Override
-    // public String toString(){
-        
-    // }
+    @Override
+    public String toString(){
+        return "games rule";
+    }
 }

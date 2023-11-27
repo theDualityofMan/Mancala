@@ -2,7 +2,7 @@ package mancala;
 import java.io.Serializable;
 
 public class MancalaGame implements Serializable{
-    public static final long serialVersionUID = 348743;
+    public static final long serialVersionUID;
 
     private GameRules board;
     private Player playerOne;
@@ -10,18 +10,34 @@ public class MancalaGame implements Serializable{
     private Player currentPlayer;
     private Player winner;
 
+    public MancalaGame(){
+        serialVersionUID = 348743;
+    }
+
+    //returns the gamerules
     public GameRules getBoard(){
         return board;
     }
 
+    //returns current player
     public Player getCurrentPlayer(){
         return currentPlayer;
     }
 
+    /**
+     * Gets the number of stones at given pit
+     * @param pitNum given pit
+     * @return number of stones found at pit
+     */
     public int getNumStones(final int pitNum){
         return board.getNumStones(pitNum);
     }
 
+    /**
+     * Gets the number of stones at store of given player and returns it
+     * @param player which player to get storecount from
+     * @return number of stones found at store
+     */
     public int getStoreCount(final Player player){
         int playerNum;
 
@@ -103,9 +119,9 @@ public class MancalaGame implements Serializable{
 
    
     //Generates a string representation of the game
-    // @Override
-    // public String toString(){
-        
-    // }
+    @Override
+    public String toString(){
+        return "Why would you ask us to make this method if the entire point was to NOT use system in or system out?";
+    }
 
 }

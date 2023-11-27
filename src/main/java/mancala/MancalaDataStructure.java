@@ -220,6 +220,9 @@ public class MancalaDataStructure implements Serializable{
         return data.get(iteratorPos);
     }
 
+    /**
+     * Returns the current position of the iterator
+     */
     public int getIterator(){
         return iteratorPos;
     }

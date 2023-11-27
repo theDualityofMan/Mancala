@@ -12,6 +12,7 @@ public class AyoRules extends GameRules implements Serializable{
         stoppingPoint = 0;
     }
 
+    
     @Override
     public boolean isExtraTurn(){
         return false;
