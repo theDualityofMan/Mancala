@@ -64,8 +64,9 @@ public class KalahRules extends GameRules implements Serializable{
     public int captureStones(final int stoppingPoint){
 
         if(getNumStones(stoppingPoint) == 1 && 
-        stoppingPoint >= 1 && stoppingPoint <= 6 && getCurPlayer() == 1 || 
-        stoppingPoint >= 7 && stoppingPoint <= 12 && getCurPlayer() == 2){
+        ((stoppingPoint >= 1 && stoppingPoint <= 6 && getCurPlayer() == 1) || 
+        (stoppingPoint >= 7 && stoppingPoint <= 12 && getCurPlayer() == 2))){
+            System.out.println(getNumStones(stoppingPoint));
             return removeStones(stoppingPoint) + removeStones(stoppingPoint + ((6 - stoppingPoint)*2) + 1);
         }
 

@@ -2,17 +2,13 @@ package mancala;
 import java.io.Serializable;
 
 public class MancalaGame implements Serializable{
-    public static final long serialVersionUID;
+    public static final long serialVersionUID = 348743;
 
     private GameRules board;
     private Player playerOne;
     private Player playerTwo;
     private Player currentPlayer;
     private Player winner;
-
-    public MancalaGame(){
-        serialVersionUID = 348743;
-    }
 
     //returns the gamerules
     public GameRules getBoard(){
