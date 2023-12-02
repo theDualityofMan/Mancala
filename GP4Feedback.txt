@@ -1,0 +1,238 @@
+
+
+********
+ Gradle Layout Check 
+********
+Gradle Layout is correct.
+
+********
+ Extra files found in repo 
+********
+no extra files found
+
+********
+ Missing Readme Headings 
+********
+Getting Started
+
+********
+ Build Check on repo as submitted 
+********
+> Task :clean UP-TO-DATE
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :jar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :pmdTest NO-SOURCE
+> Task :test NO-SOURCE
+
+> Task :pmdMain
+Removed misconfigured rule: LoosePackageCoupling  cause: No packages or classes specified
+89 PMD rule violations were found. See the report at: file:///Users/judi/Desktop/repositories/autograder-GP2/temp/dmahon/build/reports/pmd/main.html
+
+> Task :check
+> Task :build
+
+BUILD SUCCESSFUL in 2s
+4 actionable tasks: 3 executed, 1 up-to-date
+
+
+********
+ Action Listeners Implemented using lambdas 
+********
+Total Action Listeners: 11
+Total Lambda Expressions22
+
+********
+ Missing Swing Components 
+********
+JOptionPane
+JFileChooser
+
+
+********
+ PMD Rules Violations 
+********
+> Task :clean
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :jar
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :pmdTest NO-SOURCE
+> Task :test NO-SOURCE
+
+> Task :pmdMain
+67 PMD rule violations were found. See the report at: file:///Users/judi/Desktop/repositories/autograder-GP2/temp/dmahon/build/reports/pmd/main.html
+
+> Task :check
+> Task :build
+
+BUILD SUCCESSFUL in 2s
+4 actionable tasks: 4 executed
+
+
+********
+ Junit Test Results 
+********
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+
+> Task :test FAILED
+
+AyoCaptureStonesTest > testCaptureOpponentsStonesPlayerOne() FAILED
+    org.opentest4j.AssertionFailedError at AyoCaptureStonesTest.java:58
+
+AyoCaptureStonesTest > testCaptureOpponentsStonesPlayerTwo() FAILED
+    org.opentest4j.AssertionFailedError at AyoCaptureStonesTest.java:87
+
+AyoDistributeStonesTest > testCaptureStonesNonEmptyTarget() FAILED
+    org.opentest4j.AssertionFailedError at AyoDistributeStonesTest.java:195
+
+AyoDistributeStonesTest > testCorrectValuesInPitsPlayerOne() FAILED
+    org.opentest4j.AssertionFailedError at AyoDistributeStonesTest.java:111
+
+AyoDistributeStonesTest > testCorrectValuesInPitsPlayerTwo() FAILED
+    org.opentest4j.AssertionFailedError at AyoDistributeStonesTest.java:178
+
+AyoDistributeStonesTest > testAddsToCorrectStorePlayerOne() FAILED
+    org.opentest4j.AssertionFailedError at AyoDistributeStonesTest.java:95
+
+AyoDistributeStonesTest > testAddsToCorrectStorePlayerTwo() FAILED
+    org.opentest4j.AssertionFailedError at AyoDistributeStonesTest.java:163
+
+AyoMoveStonesTest > testMoveStonesMultiMoveNoCapturePlayerOne() FAILED
+    mancala.InvalidMoveException at AyoMoveStonesTest.java:99
+
+AyoMoveStonesTest > testMoveStonesMultiMoveNoCapturePlayerTwo() FAILED
+    mancala.InvalidMoveException at AyoMoveStonesTest.java:228
+
+AyoMoveStonesTest > testInitialBoardSetup() FAILED
+    org.opentest4j.AssertionFailedError at AyoMoveStonesTest.java:321
+
+AyoMoveStonesTest > testMoveStonesOpponentSideStopPlayerOne() FAILED
+    mancala.InvalidMoveException at AyoMoveStonesTest.java:174
+
+AyoMoveStonesTest > testMoveStonesOpponentSideStopPlayerTwo() FAILED
+    mancala.InvalidMoveException at AyoMoveStonesTest.java:304
+
+AyoMoveStonesTest > testMoveStonesReturnValPlayerOne() FAILED
+    mancala.InvalidMoveException at AyoMoveStonesTest.java:79
+
+AyoMoveStonesTest > testMoveStonesReturnValPlayerTwo() FAILED
+    mancala.InvalidMoveException at AyoMoveStonesTest.java:211
+
+AyoMoveStonesTest > testMoveStonesZeroCapturePlayerOne() FAILED
+    mancala.InvalidMoveException at AyoMoveStonesTest.java:132
+
+AyoMoveStonesTest > testMoveStonesZeroCapturePlayerTwo() FAILED
+    mancala.InvalidMoveException at AyoMoveStonesTest.java:261
+
+AyoMoveStonesTest > testMoveStonesOneMovePlayerOne() FAILED
+    mancala.InvalidMoveException at AyoMoveStonesTest.java:63
+
+AyoMoveStonesTest > testMoveStonesOneMovePlayerTwo() FAILED
+    mancala.InvalidMoveException at AyoMoveStonesTest.java:194
+
+AyoMoveStonesTest > testMoveStonesMultiMoveWithCapturePlayerOne() FAILED
+    mancala.InvalidMoveException at AyoMoveStonesTest.java:117
+
+AyoMoveStonesTest > testMoveStonesMultiMoveWithCapturePlayerTwo() FAILED
+    mancala.InvalidMoveException at AyoMoveStonesTest.java:246
+
+KalahCaptureStonesTest > testCaptureWhenZeroPlayerOne() FAILED
+    org.opentest4j.AssertionFailedError at KalahCaptureStonesTest.java:72
+
+KalahCaptureStonesTest > testCaptureOpponentsStonesPlayerOne() FAILED
+    org.opentest4j.AssertionFailedError at KalahCaptureStonesTest.java:58
+
+KalahCaptureStonesTest > testCaptureOpponentsStonesPlayerTwo() FAILED
+    org.opentest4j.AssertionFailedError at KalahCaptureStonesTest.java:87
+
+KalahDistributeStonesTest > testCorrectValuesInPitsPlayerOne() FAILED
+    org.opentest4j.AssertionFailedError at KalahDistributeStonesTest.java:93
+
+KalahDistributeStonesTest > testCorrectValuesInPitsPlayerTwo() FAILED
+    org.opentest4j.AssertionFailedError at KalahDistributeStonesTest.java:144
+
+KalahMoveStonesTest > testMoveStonesEndInStore() FAILED
+    mancala.InvalidMoveException at KalahMoveStonesTest.java:162
+
+KalahMoveStonesTest > testInitialBoardSetup() FAILED
+    org.opentest4j.AssertionFailedError at KalahMoveStonesTest.java:331
+
+KalahMoveStonesTest > testMoveStonesStopInStorePlayerTwo() FAILED
+    mancala.InvalidMoveException at KalahMoveStonesTest.java:293
+
+KalahMoveStonesTest > testMoveStonesWithCapturePlayerOne() FAILED
+    org.opentest4j.AssertionFailedError at KalahMoveStonesTest.java:106
+
+KalahMoveStonesTest > testMoveStonesWithCapturePlayerTwo() FAILED
+    org.opentest4j.AssertionFailedError at KalahMoveStonesTest.java:235
+
+KalahMoveStonesTest > testMoveStonesOpponentSideStopPlayerOne() FAILED
+    org.opentest4j.AssertionFailedError at KalahMoveStonesTest.java:182
+
+KalahMoveStonesTest > testMoveStonesOpponentSideStopPlayerTwo() FAILED
+    org.opentest4j.AssertionFailedError at KalahMoveStonesTest.java:315
+
+KalahMoveStonesTest > testMoveStonesReturnValPlayerOne() FAILED
+    mancala.InvalidMoveException at KalahMoveStonesTest.java:87
+
+KalahMoveStonesTest > testMoveStonesReturnValPlayerTwo() FAILED
+    mancala.InvalidMoveException at KalahMoveStonesTest.java:217
+
+KalahMoveStonesTest > testMoveStonesZeroCapturePlayerOne() FAILED
+    mancala.InvalidMoveException at KalahMoveStonesTest.java:120
+
+KalahMoveStonesTest > testMoveStonesZeroCapturePlayerTwo() FAILED
+    mancala.InvalidMoveException at KalahMoveStonesTest.java:249
+
+KalahMoveStonesTest > testMoveStonesOneMovePlayerOne() FAILED
+    mancala.InvalidMoveException at KalahMoveStonesTest.java:72
+
+KalahMoveStonesTest > testMoveStonesOneMovePlayerTwo() FAILED
+    mancala.InvalidMoveException at KalahMoveStonesTest.java:201
+3 actionable tasks: 3 executed
+
+
+61 tests completed, 38 failed
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///Users/judi/Desktop/repositories/autograder-GP2/temp/dmahon/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 1s
+
+
+********
+ Polymorphism implementation 
+********
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+> Task :jacocoTestReport
+
+BUILD SUCCESSFUL in 1s
+4 actionable tasks: 4 executed
+
